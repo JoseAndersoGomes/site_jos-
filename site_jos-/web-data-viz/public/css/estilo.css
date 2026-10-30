@@ -109,6 +109,10 @@ body {
     display: block;
 }
 
+.curiosidades .card img {
+    object-position: center top;
+}
+
 .card:hover {
     border-color: #ff6b00;
 }
@@ -150,3 +154,4 @@ body {
     text-align: center;
     padding: 15px 0;
 }
+
