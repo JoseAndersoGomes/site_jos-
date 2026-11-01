@@ -1,0 +1,182 @@
+/* ===== Geral ===== */
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/imgs/banner-nba.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #111111;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 85%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ===== Cabeçalho ===== */
+.header {
+    background-color: #e8590c; /* laranja de bola de basquete */
+    border-bottom: 6px solid #111111;
+    padding: 20px 0;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titulo {
+    color: #ffffff;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+/* ===== Menu ===== */
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border: 2px solid #e8590c;
+}
+
+.navbar a:hover {
+    border: 2px solid #111111;
+}
+
+/* Página atual (Login) */
+.agora a {
+    background-color: #111111;
+    color: #ffb703;
+}
+
+/* ===== Área de login ===== */
+.login {
+    padding: 50px 0;
+}
+
+/* ===== Mensagem de erro (começa escondida, o JS mostra) ===== */
+.alerta_erro {
+    width: 85%;
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+}
+
+.card_erro {
+    display: none;
+    background-color: #d90429;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    border: 3px solid #111111;
+    border-radius: 10px;
+}
+
+/* ===== Card do login ===== */
+.card-login {
+    background-color: #ffffff;
+    width: 400px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 30px;
+    border: 4px solid #111111;
+    border-top: 12px solid #e8590c;
+    border-radius: 15px;
+}
+
+.card-login h2 {
+    text-align: center;
+    color: #e8590c;
+    font-size: 1.8rem;
+    margin-top: 0;
+}
+
+/* ===== Formulário ===== */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.campo span {
+    font-weight: bold;
+}
+
+.campo input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #111111;
+    border-radius: 8px;
+}
+
+.campo input:focus {
+    border-color: #e8590c;
+    outline: none;
+}
+
+/* ===== Botão ===== */
+.botao {
+    background-color: #e8590c;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 12px;
+    border: 3px solid #111111;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.botao:hover {
+    background-color: #111111;
+    color: #ffb703;
+}
+
+/* ===== Loading (começa escondido, o JS mostra) ===== */
+.loading-div {
+    display: none;
+    text-align: center;
+    margin-top: 15px;
+}
+
+#loading-gif {
+    width: 50px;
+}
+
+#div_erros_login {
+    text-align: center;
+    color: #d90429;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* ===== Rodapé ===== */
+.footer {
+    display: none;}
+
+.footer h4 {
+    color: #ffb703;
+    margin: 0;
+}
