@@ -10,7 +10,7 @@
 
   <script src="./js/sessao.js"></script>
 
-  <link rel="stylesheet" href="./css/estilo.css" />
+  <link rel="stylesheet" href="./css/cadastro_css.css" />
   <link rel="icon" href="./assets/icon/favicon2.ico" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
@@ -53,7 +53,7 @@
                          Para inserir mais um campo, copie uma das inputs abaixo.
                          Assim que inserir vá para o script abaixo.
                      -->
-          <div class="campo">
+          <div class="campo_peixe">
             <span>Código de ativação:</span>
             <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
           </div>
@@ -101,6 +101,11 @@
   let listaEmpresasCadastradas = [];
 
   function cadastrar() {
+    let indice_com = emailVar.indexOf('.com');
+    let indice_arroba = emailVar.indexOf('@');
+    let arroba_antes_com = indice_arroba < indice_com;
+    let comeca_com_arroba = emailVar.startsWith('@');
+    let contem_espaco = emailVar.includes(' ');
     // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
@@ -110,7 +115,7 @@
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     var codigoVar = codigo_input.value;
-    var idEmpresaVincular
+    // var idEmpresaVincular
 
     // Verificando se há algum campo em branco
     if (
@@ -126,22 +131,34 @@
 
       finalizarAguardar();
       return false;
-    } else {
+    } else { if (codigoVar != "CODIGO1" && codigoVar != "CODIGO2" && codigoVar != "CODIGO3") {
+      alert(`Código de ativação inválido!`);
+      return false;
+    } else if (indice_com == -1 || indice_arroba == -1 || !arroba_antes_com || comeca_com_arroba || contem_espaco) {
+      alert(`E-mail inválido!`);
+      return false;
+    } else if (senhaVar.length < 8 || senhaVar == senhaVar.toUpperCase() || senhaVar == senhaVar.toLowerCase()) {
+      alert(`Senha inválida!`);
+      return false;
+    } else if (senhaVar != confirmacaoSenhaVar) {
+      alert(`As senhas não coincidem!`);
+      return false;
+    }
       setInterval(sumirMensagem, 5000);
     }
 
     // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-        idEmpresaVincular = listaEmpresasCadastradas[i].id
-        console.log("Código de ativação válido.");
-        break;
-      } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        finalizarAguardar();
-      }
-    }
+    //for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+     // if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
+       // idEmpresaVincular = listaEmpresasCadastradas[i].id
+       // console.log("Código de ativação válido.");
+       // break;
+     // } else {
+     //   cardErro.style.display = "block";
+       // mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+      //  finalizarAguardar();
+      //}
+    //}
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {

@@ -84,9 +84,18 @@
 </html>
 
 <script>
-
-
+    let bloqueio =false
+ let lista_erro =[]
+let tentativas =3
     function entrar() {
+if(bloqueio==true){alert('você foi pro banco ja era ')
+    return false
+}
+
+
+
+
+
         aguardar();
 
         var emailVar = email_input.value;
@@ -137,6 +146,15 @@
             } else {
 
                 console.log("Houve um erro ao tentar realizar o login!");
+lista_erro.push("erro")
+tentativas --
+for(erro=0;lista_erro.length>erro;erro++){
+    if (tentativas>0) { div_erros_login.innerHTML=`você errou a cesta tem mais ${tentativas}`
+        
+    } else {bloqueio=true
+        
+    }
+}
 
                 resposta.text().then(texto => {
                     console.error(texto);
