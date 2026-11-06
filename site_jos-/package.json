@@ -1,0 +1,9 @@
+{
+  "name": "site-jos-",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix web-data-viz start",
+    "dev": "npm --prefix web-data-viz run dev"
+  }
+}

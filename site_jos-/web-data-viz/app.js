@@ -15,6 +15,11 @@ var HOST_APP = process.env.APP_HOST;
 
 var app = express();
 
+// Evita que uma falha isolada (ex.: banco fora do ar) derrube o servidor inteiro.
+process.on("unhandledRejection", function (motivo) {
+    console.error("Promise rejeitada sem tratamento:", motivo);
+});
+
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var avisosRouter = require("./src/routes/avisos");
@@ -35,7 +40,15 @@ app.use("/medidas", medidasRouter);
 app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
 
-app.listen(PORTA_APP, function () {
+// Middleware de erro: responde 500 sem derrubar o processo.
+app.use(function (erro, req, res, next) {
+    console.error("Erro não tratado na requisição:", erro);
+    if (!res.headersSent) {
+        res.status(500).json({ erro: "Erro interno do servidor" });
+    }
+});
+
+var servidor = app.listen(PORTA_APP, function () {
     console.log(`
     ##   ##  ######   #####             ####       ##     ######     ##              ##  ##    ####    ######  
     ##   ##  ##       ##  ##            ## ##     ####      ##      ####             ##  ##     ##         ##  
@@ -50,4 +63,13 @@ app.listen(PORTA_APP, function () {
     \tSe .:desenvolvimento:. você está se conectando ao banco local. \n
     \tSe .:producao:. você está se conectando ao banco remoto. \n\n
     \t\tPara alterar o ambiente, comente ou descomente as linhas 1 ou 2 no arquivo 'app.js'\n\n`);
+});
+
+servidor.on("error", function (erro) {
+    if (erro.code === "EADDRINUSE") {
+        console.error(`\nA porta ${PORTA_APP} já está em uso. Feche o outro processo ou altere APP_PORT no arquivo .env.dev.\n`);
+    } else {
+        console.error("\nErro ao iniciar o servidor:", erro, "\n");
+    }
+    process.exit(1);
 });
