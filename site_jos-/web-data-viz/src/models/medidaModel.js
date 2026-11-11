@@ -1,33 +1,41 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idAquario, limite_linhas) {
+// Mudei o nome da função para fazer sentido com o seu projeto de basquete!
+function buscarVotos() {
 
-    var instrucaoSql = `SELECT 
-                        temperatura,
-                        momento,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-                    FROM medida
-                    WHERE fk_aquario = ${idAquario}
-                    ORDER BY id DESC LIMIT ${limite_linhas}`;
-
+    // Adicionado o 'AS qtd_votos' e o 'ORDER BY'
+    var instrucaoSql = `
+        SELECT 
+            times.nome, 
+            COUNT(times.nome) AS qtd_votos
+        FROM times
+        GROUP BY times.nome
+        ORDER BY qtd_votos DESC;
+    `;
+    
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idAquario) {
+// Em uma votação, você geralmente não precisa de uma função separada para tempo real
+// que traz "LIMIT 1". Você pode simplesmente chamar a mesma função de buscarVotos 
+// de tempos em tempos para atualizar o placar completo!
+function buscarVotosEmTempoReal() {
 
-    var instrucaoSql = `SELECT 
-                        temperatura,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-                        fk_aquario 
-                        FROM medida WHERE fk_aquario = ${idAquario} 
-                    ORDER BY id DESC LIMIT 1`;
+    var instrucaoSql = `
+        SELECT 
+            times.nome, 
+            COUNT(times.nome) AS qtd_votos
+        FROM times
+        GROUP BY times.nome
+        ORDER BY qtd_votos DESC;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarVotos,
+    buscarVotosEmTempoReal
 }
