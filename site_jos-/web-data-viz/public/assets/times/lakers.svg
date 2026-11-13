@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#552583" rx="40" />
+  <circle cx="100" cy="85" r="55" fill="#FDB927" />
+  <text x="100" y="140" font-family="Arial" font-size="42" fill="#552583" text-anchor="middle" font-weight="bold">LAL</text>
+</svg>

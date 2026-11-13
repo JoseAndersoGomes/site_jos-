@@ -1,0 +1,236 @@
+/* 1. CONFIGURACOES GERAIS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url('../assets/imgs/banner-fundo.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  color: #1f2937;
+}
+
+/* Fundo escuro suave por cima da imagem para o texto ficar legível */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.75);
+  z-index: -1;
+}
+
+/* 2. CABECALHO */
+.header {
+  background: linear-gradient(90deg, #0b1f4b, #17408b);
+  padding: 18px 24px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.2);
+}
+
+.header .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.logo {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.logo span {
+  color: #f97316;
+}
+
+.navbar {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.navbar a {
+  color: #e5e7eb;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.navbar a:hover,
+.navbar a.ativo {
+  background-color: #f97316;
+  color: white;
+}
+
+/* 3. CAIXA DE VOTACAO */
+.votacao-container {
+  width: 92%;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 32px;
+  flex: 1;
+  text-align: center;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+.votacao-container h2 {
+  color: #17408b;
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.votacao-container > p {
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+/* 4. LISTA DE TIMES */
+.times {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.card-time {
+  width: 150px;
+  cursor: pointer;
+}
+
+/* Esconde a bolinha do radio, mas o input continua funcionando */
+.card-time input {
+  display: none;
+}
+
+.conteudo-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 12px;
+  background-color: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.card-time:hover .conteudo-time {
+  border-color: #f97316;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(249, 115, 22, 0.18);
+}
+
+/* Quando o radio estiver marcado, o card logo abaixo muda de cor */
+.card-time input:checked + .conteudo-time {
+  border-color: #f97316;
+  background-color: #fff7ed;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+}
+
+.times img {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+}
+
+.nome-time {
+  font-weight: bold;
+  color: #17408b;
+}
+
+.card-time input:checked + .conteudo-time .nome-time {
+  color: #c2410c;
+}
+
+/* 5. BOTAO */
+.botao {
+  padding: 14px 36px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #f97316, #ea580c);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.botao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(234, 88, 12, 0.35);
+}
+
+/* 6. MENSAGEM DE RESULTADO */
+.resultado {
+  min-height: 28px;
+  margin-top: 18px;
+  font-weight: bold;
+}
+
+.resultado.sucesso {
+  color: #15803d;
+}
+
+.resultado.erro {
+  color: #b91c1c;
+}
+
+.link-resultados {
+  display: inline-block;
+  margin-top: 10px;
+  color: #17408b;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: 2px solid #f97316;
+}
+
+.link-resultados:hover {
+  color: #f97316;
+}
+
+/* 7. RODAPE */
+.footer {
+  padding: 18px;
+  background-color: #0b1f4b;
+  color: #cbd5e1;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* 8. AJUSTE PARA CELULAR */
+@media (max-width: 600px) {
+  .votacao-container {
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+  .votacao-container h2 {
+    font-size: 24px;
+  }
+
+  .card-time {
+    width: 130px;
+  }
+
+  .times img {
+    width: 70px;
+    height: 70px;
+  }
+}

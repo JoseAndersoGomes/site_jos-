@@ -1,6 +1,12 @@
 /* ===== Geral ===== */
 body {
-    background-color: #f2d9a8; /* cor de quadra de madeira */
+    display:block;
+    
+    background-image: url("../assets/imgs/nba-draft-2006.jpg"); /* foto do draft da NBA (ambiente do draft) */
+    background-size: auto;
+    background-position: top left;
+    background-repeat: repeat;
+    background-attachment: fixed;
     color: #111111;
     font-family: Verdana, sans-serif;
     margin: 0;
@@ -196,6 +202,7 @@ body {
 
 /* ===== Rodapé ===== */
 .footer {
+    display: none;
     background-color: #111111;
     border-top: 6px solid #e8590c;
     text-align: center;
@@ -203,6 +210,7 @@ body {
 }
 
 .footer h4 {
+    display: none;
     color: #ffb703;
     margin: 0;
 }

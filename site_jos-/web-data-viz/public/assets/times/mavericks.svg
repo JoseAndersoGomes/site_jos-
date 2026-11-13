@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#00538C" rx="40" />
+  <circle cx="100" cy="85" r="55" fill="#B8C4CA" />
+  <text x="100" y="140" font-family="Arial" font-size="42" fill="#00538C" text-anchor="middle" font-weight="bold">DAL</text>
+</svg>

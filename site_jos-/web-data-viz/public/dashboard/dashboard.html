@@ -54,6 +54,9 @@
             <div class="btns-dash">
                 <h2 style="color: white; margin-bottom: 20px;">Resultado em Tempo Real: Times Mais Votados</h2>
             </div>
+
+            <!-- Ranking com as fotos dos times -->
+            <div id="rankingTimes" class="ranking-times"></div>
             
             <!-- Container do Gráfico Único -->
             <div id="graficos">
@@ -67,15 +70,45 @@
         </div>
     </div>
 
-</body>
-
-</html>
-
-<script>
+    <script>
     // Recupera o nome do usuário para a saudação
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO || "Jogador";
 
     let proximaAtualizacao;
+
+    // Fotos dos times que aparecem na votação
+    const logosTimes = {
+        Lakers: "../assets/times/lakers.png",
+        Bulls: "../assets/times/bulls.png",
+        Celtics: "../assets/times/celtics.png",
+        Warriors: "../assets/times/warriors.png",
+        Kings: "../assets/times/kings.png",
+        Heat: "../assets/times/heat.png",
+        Spurs: "../assets/times/spurs.png",
+        Mavericks: "../assets/times/mavericks.png"
+    };
+
+    // Monta os cards do ranking com foto, nome e quantidade de votos
+    function mostrarRanking(lista) {
+        const ranking = document.getElementById("rankingTimes");
+        ranking.innerHTML = "";
+
+        for (let i = 0; i < lista.length; i++) {
+            const nome = lista[i].nome;
+            const logo = logosTimes[nome] || "../assets/imgs/nba-oficial.png";
+
+            ranking.innerHTML += `
+                <div class="card-ranking">
+                    <img src="${logo}" alt="Escudo do ${nome}">
+                    <div>
+                        <h3>${nome}</h3>
+                        <p>${lista[i].qtd_votos} voto(s)</p>
+                    </div>
+                    
+                </div>
+            `;
+        }
+    }
 
     // Carrega o gráfico automaticamente assim que a página abre
     window.onload = obterDadosGrafico();
@@ -106,14 +139,26 @@
     function plotarGrafico(resposta) {
         console.log('Iniciando plotagem do gráfico...');
 
+        // Cores oficiais dos times da NBA
+        const coresTimes = {
+            Lakers: '#552583',
+            Bulls: '#CE1141',
+            Celtics: '#007A33',
+            Warriors: '#006BB6',
+            Kings: '#5A2D81',
+            Heat: '#98002E',
+            Spurs: '#000000',
+            Mavericks: '#00538B'
+        };
+
         let labels = [];
+        let coresBarras = [];
         let dados = {
             labels: labels,
             datasets: [{
                 label: 'Votos',
                 data: [],
-                backgroundColor: 'rgba(255, 140, 0, 0.7)', // Cor laranja inspirada em basquete
-                borderColor: 'rgb(255, 140, 0)',
+                backgroundColor: coresBarras,
                 borderWidth: 1
             }]
         };
@@ -123,7 +168,10 @@
             var registro = resposta[i];
             labels.push(registro.nome); 
             dados.datasets[0].data.push(registro.qtd_votos);
+            coresBarras.push(coresTimes[registro.nome] || '#ff6b00');
         }
+
+        mostrarRanking(resposta);
 
         const config = {
             type: 'bar', // Gráfico de barras (colunas)
@@ -157,10 +205,15 @@
                     dados.datasets[0].data = [];
 
                     // Coloca as contagens fresquinhas que vieram do banco
+                    let novasCores = [];
                     for (let i = 0; i < novoRegistro.length; i++) {
                         dados.labels.push(novoRegistro[i].nome);
                         dados.datasets[0].data.push(novoRegistro[i].qtd_votos);
+                        novasCores.push(coresTimes[novoRegistro[i].nome] || '#ff6b00');
                     }
+                    dados.datasets[0].backgroundColor = novasCores;
+
+                    mostrarRanking(novoRegistro);
 
                     // Manda o Chart.js atualizar visualmente a altura das barras
                     myChart.update();
@@ -177,4 +230,7 @@
             proximaAtualizacao = setTimeout(() => atualizarGrafico(dados, myChart), 2000);
         });
     }
-</script>
+    </script>
+</body>
+
+</html>

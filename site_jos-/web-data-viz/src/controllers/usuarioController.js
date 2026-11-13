@@ -1,5 +1,4 @@
 var usuarioModel = require("../models/usuarioModel");
-// Removido o aquarioModel (não precisamos de peixes no basquete!)
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -48,8 +47,6 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
-    // Validações corrigidas (apenas checando se não está vazio ou undefined)
-    // A validação de '@' e '.com' já foi feita e barrada lá no Front-end (HTML)
     if (nome == undefined || nome == "") {
         res.status(400).send("Seu nome está vazio ou undefined!");
     } else if (email == undefined || email == "") {

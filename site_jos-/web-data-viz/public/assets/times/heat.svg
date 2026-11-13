@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#98002E" rx="40" />
+  <circle cx="100" cy="85" r="55" fill="#F9A01B" />
+  <text x="100" y="140" font-family="Arial" font-size="42" fill="#98002E" text-anchor="middle" font-weight="bold">MIA</text>
+</svg>

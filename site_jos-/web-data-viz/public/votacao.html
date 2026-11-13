@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Vote Basquete | Escolha seu Time</title>
+  <link rel="stylesheet" href="./css/votacao.css" />
+  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">Vote<span>Basquete</span></a>
+
+      <ul class="navbar">
+        <li><a href="index.html">Inicial</a></li>
+        <li><a href="votacao.html" class="ativo">Votação</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="cadastro.html">Cadastro</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="votacao-container">
+    <h2>Escolha seu time favorito!</h2>
+    <p>Clique no escudo do time e confirme seu voto.</p>
+
+    <form id="votacaoForm">
+      <div class="times">
+        <label class="card-time">
+          <input type="radio" name="time" value="Lakers" />
+          <span class="conteudo-time">
+            <img src="./assets/times/lakers.png" alt="Escudo do Los Angeles Lakers" />
+            <span class="nome-time">Lakers</span>
+          </span>
+        </label>
+
+        <label class="card-time">
+          <input type="radio" name="time" value="Bulls" />
+          <span class="conteudo-time">
+            <img src="./assets/times/bulls.png" alt="Escudo do Chicago Bulls" />
+            <span class="nome-time">Bulls</span>
+          </span>
+        </label>
+
+        <label class="card-time">
+          <input type="radio" name="time" value="Celtics" />
+          <span class="conteudo-time">
+            <img src="./assets/times/celtics.png" alt="Escudo do Boston Celtics" />
+            <span class="nome-time">Celtics</span>
+          </span>
+        </label>
+
+        <label class="card-time">
+          <input type="radio" name="time" value="Warriors" />
+          <span class="conteudo-time">
+            <img src="./assets/times/warriors.png" alt="Escudo do Golden State Warriors" />
+            <span class="nome-time">Warriors</span>
+          </span>
+        </label>
+
+        <label class="card-time">
+          <input type="radio" name="time" value="Kings" />
+          <span class="conteudo-time">
+            <img src="./assets/times/kings.png" alt="Escudo do Sacramento Kings" />
+            <span class="nome-time">Kings</span>
+          </span>
+        </label>
+
+        <label class="card-time">
+          <input type="radio" name="time" value="Heat" />
+          <span class="conteudo-time">
+            <img src="./assets/times/heat.png" alt="Escudo do Miami Heat" />
+            <span class="nome-time">Heat</span>
+          </span>
+        </label>
+
+        <label class="card-time">
+          <input type="radio" name="time" value="Spurs" />
+          <span class="conteudo-time">
+            <img src="./assets/times/spurs.png" alt="Escudo do San Antonio Spurs" />
+            <span class="nome-time">Spurs</span>
+          </span>
+        </label>
+
+        <label class="card-time">
+          <input type="radio" name="time" value="Mavericks" />
+          <span class="conteudo-time">
+            <img src="./assets/times/mavericks.png" alt="Escudo do Dallas Mavericks" />
+            <span class="nome-time">Mavericks</span>
+          </span>
+        </label>
+      </div>
+
+      <button type="submit" class="botao">Confirmar voto</button>
+    </form>
+
+    <div id="resultadoMensagem" class="resultado"></div>
+
+    <a href="./dashboard/dashboard.html" class="link-resultados">Ver resultados da votação</a>
+  </main>
+
+  <footer class="footer">
+    <p>Feito por aluno &hearts; SPTech &copy; 2023-2026</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("votacaoForm");
+    const mensagem = document.getElementById("resultadoMensagem");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const timeEscolhido = form.time.value;
+
+      if (!timeEscolhido) {
+        mensagem.textContent = "Por favor, escolha um time antes de votar.";
+        mensagem.className = "resultado erro";
+        return;
+      }
+
+      fetch("/votos/votar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nomeServer: timeEscolhido
+        })
+      })
+        .then(function (resposta) {
+          if (resposta.ok) {
+            mensagem.textContent = "Voto confirmado no " + timeEscolhido + "!";
+            mensagem.className = "resultado sucesso";
+            form.reset();
+          } else {
+            mensagem.textContent = "Não foi possível registrar seu voto. Tente novamente.";
+            mensagem.className = "resultado erro";
+          }
+        })
+        .catch(function () {
+          mensagem.textContent = "Não foi possível registrar seu voto. Tente novamente.";
+          mensagem.className = "resultado erro";
+        });
+    });
+  </script>
+</body>
+
+</html>

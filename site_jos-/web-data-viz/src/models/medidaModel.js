@@ -1,9 +1,7 @@
-var database = require("../database/config");
+   var database = require("../database/config");
 
-// Mudei o nome da função para fazer sentido com o seu projeto de basquete!
 function buscarVotos() {
 
-    // Adicionado o 'AS qtd_votos' e o 'ORDER BY'
     var instrucaoSql = `
         SELECT 
             times.nome, 
